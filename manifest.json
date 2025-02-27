@@ -1,0 +1,25 @@
+{
+  "platform-version": "2.3",
+  "product": {
+    "freshservice": {
+      "location": {
+        "full_page_app": {
+          "url": "../config/iparams.html",
+          "icon":"../app/styles/images/icon.svg"
+        }
+      },
+      "requests": {
+        "getAllTickets": {}
+      },
+      "events": {
+        "onTicketCreate": {
+          "handler": "onTicketCreateHandler"
+        }
+      }
+    }
+  },
+  "engines": {
+    "node": "18.20.6",
+    "fdk": "9.2.0"
+  }
+}

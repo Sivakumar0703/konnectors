@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- crayons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/css/crayons-min.css" />
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <!-- external css -->
+     <!-- <link rel="stylesheet" href="./assets/iparams.css" /> -->
+    <script src="{{{appclient}}}"></script>
+    <style>
+        body{
+            font-family:Open Sans,Helvetica Neue,sans-serif;
+        }
+
+        #show-signup-page{
+            cursor: pointer;
+            color:blue;
+        }
+
+        #login-btn-container, #signup-btn-container, #service-validation-btn-container{
+            display: flex;
+            justify-content: center;
+        }
+
+        #signup-page{
+            display: none;
+        }  
+        
+        .font{
+            font-family:Open Sans,Helvetica Neue,sans-serif;
+        }
+
+        #signup-btn{
+            margin-left: 10px;
+        }
+
+        .password-icon{
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- toast -->
+    <fw-toast id="toast-msg"></fw-toast>
+
+    <!-- signup tab -->
+    <div id="signup-page">
+        <fw-tabs>
+         <fw-tab slot="tab" panel="signup">Signup</fw-tab>
+         <fw-tab-pannel name="signup">
+            <br>
+            <fw-input label="Username" icon-left="at-the-rate" hint-text="Create your konnector's ipaas username"
+            warning-text="Username field should not be empty" 
+            placeholder="eg: Mark1123" required clear-input id="signup-username">
+             </fw-input>
+            <br>
+            <fw-input label="Password" icon-left="password" hint-text="Create your konnector's ipaas password"
+            warning-text="Password field should not be empty" type="password" 
+            placeholder="eg: pass@w58ord" required clear-input id="signup-password">
+             <fw-icon name="hidden" slot="input-suffix" id="signup-password-icon" class="password-icon"></fw-icon>
+             </fw-input>
+            <br>
+            <fw-input label="Company" icon-left="company" hint-text="Please enter your company name"
+            warning-text="Company name field should not be empty"  
+            placeholder="eg: konnectify" required clear-input id="signup-company">
+             </fw-input>
+            <br>
+            <fw-input label="Phone" icon-left="phone" hint-text="Please enter your contact number"
+            warning-text="phone number field should not be empty" type="number" minlength="10" maxlength="10"
+            placeholder="eg: 8975xxx579" required clear-input id="signup-phone">
+             </fw-input>
+            <br>
+            <div id="signup-btn-container">
+                <fw-button id="back-btn">
+                    <fw-icon name="arrow-left"></fw-icon> &nbsp;
+                    go back
+                 </fw-button>
+
+                <fw-button id="signup-btn">Signup</fw-button>
+            </div>
+            <br>
+         </fw-tab-pannel>
+        </fw-tabs>
+    </div>
+    
+       
+    <!-- settings page tab -->
+    <div id="settings-page">
+        <fw-tabs id="settings-tab">
+            <fw-tab slot="tab" panel="login">Login</fw-tab>
+            <fw-tab slot="tab" panel="freshservice" disabled="true" id="freshservice-tab">Freshservice</fw-tab>
+  
+            <fw-tab-panel name="login">
+              <!-- credentials -->
+              <div id="login-container"> <br>
+                <div id="input-container">
+                    <fw-input label="Username" icon-left="at-the-rate" hint-text="Please enter your konnector's ipaas username"
+                    warning-text="Username field should not be empty" 
+                    placeholder="eg: Mark1123" required clear-input id="login-username">
+                </fw-input>
+            </div>
+            <br>
+            <div id="password-container">
+                <fw-input label="Password" icon-left="password" hint-text="Please enter your konnector's ipaas password"
+                warning-text="Password field should not be empty"  type="password" 
+                placeholder="eg: pass@w58ord" required clear-input id="login-password">
+                    <fw-icon name="hidden" slot="input-suffix" id="login-password-icon" class="password-icon"></fw-icon>
+            </fw-input> 
+        </div>
+        <br>
+        <!-- validate button -->
+        <div id="login-btn-container">
+            <fw-button color="primary" id="login-btn"> Login </fw-button>
+        </div>
+        <br>
+        
+        <div style="font-family:Open Sans,Helvetica Neue,sans-serif">
+            <!-- <fw-button modal-trigger-id='modal-slider' id=""> Click here </fw-button> -->
+            <span>Don't you have an account ? </span>
+            <span id="show-signup-page">Click here!</span>
+        </div>
+        <br>
+        </div>
+            </fw-tab-panel>
+  
+            <fw-tab-panel name="freshservice">
+                <div id="service-validation">
+
+                </div>
+
+                <div id="service-validation-btn-container">
+                    <fw-button id="service-validate-btn">validate</fw-button>
+                </div>
+            </fw-tab-panel>
+        </fw-tabs>
+    </div>
+<script>
+        // varibales declaration
+        let is_login_successful = false;
+        const service_provider = "freshservice.com";
+        const login_username = document.getElementById("login-username");
+        const login_password = document.getElementById("login-password");
+        const login_btn = document.getElementById("login-btn");
+        const signup_company = document.getElementById("signup-company");
+        const signup_phone = document.getElementById("signup-phone");
+        const signup_btn = document.getElementById("signup-btn");
+        const show_signup_page = document.getElementById("show-signup-page"); // previous showSignupPage
+        const signup_username = document.getElementById("signup-username");
+        const signup_password = document.getElementById("signup-password");
+        const signup_page = document.getElementById("signup-page");
+        const settings_page = document.getElementById("settings-page");
+        const goto_signup = document.getElementById("show-signup-page");
+        const go_back_btn = document.getElementById("back-btn");
+        const toast = document.getElementById('toast-msg');
+        const freshservice_tab = document.getElementById("freshservice-tab");
+        let service_field_container = document.getElementById("service-validation"); // the product we are integrating 
+        const service_validation_btn = document.getElementById("service-validate-btn");
+        const login_password_icon = document.getElementById("login-password-icon");      
+        const signup_password_icon = document.getElementById("signup-password-icon");
+        const settings_tab = document.getElementById("settings-tab");      
+
+        document.addEventListener("DOMContentLoaded", function () {
+            app
+                .initialized()
+                .then(function (_client) {
+                    window.client = _client;
+                    login_btn.addEventListener("click", () => validateTheCredentials(isValidUser));
+                    login_username.addEventListener("fwInput", () => login_username.state = "normal");
+                    login_password.addEventListener("fwInput", () => login_password.state = "normal");
+                    signup_phone.addEventListener("fwInput", () => {
+                        signup_phone.errorText = "";
+                        signup_phone.state = "normal";
+                    });
+                    signup_username.addEventListener("fwInput", () =>  signup_username.state = "normal")
+                    signup_password.addEventListener("fwInput", () =>  signup_password.state = "normal")
+                    signup_company.addEventListener("fwInput", () =>  signup_company.state = "normal")
+                    signup_phone.addEventListener("fwInput", () =>  signup_phone.state = "normal")
+                    signup_btn.addEventListener("click", signup);
+                    goto_signup.addEventListener("click", () => togglePage(true));
+                    go_back_btn.addEventListener("click", () => togglePage(false));
+                    service_validation_btn.addEventListener("click" , validateServiceCredentials);
+                    login_password_icon.addEventListener("click", () => tooglePasswordVisiblity(login_password, login_password_icon));
+                    signup_password_icon.addEventListener("click", () => tooglePasswordVisiblity(signup_password, signup_password_icon));
+                })
+                .catch(function (err) {
+                    console.error("error in app initialization", err);
+                });
+        });
+
+        function tooglePasswordVisiblity(inputElement, icon){
+            const input_type = inputElement.type;
+            console.log("input type", input_type);
+            if(input_type === "password"){
+                inputElement.type = "text";
+                icon.name = "visible";
+            } else {
+                inputElement.type = "password";
+                icon.name = "hidden";
+            }
+        }
+
+        // to toggle between login and signup page
+        function togglePage(showLogin){
+            console.log("show login page", showLogin)
+            settings_page.style.display = showLogin ? "none" : "block";
+            signup_page.style.display = showLogin ? "block" : "none";
+        }
+
+
+        function postConfigs(){
+            const login_username = username.value.trim();
+            const login_password = password.value.trim();
+            return {
+                username,
+                password 
+            }
+        }
+
+        function getConfigs(iparams){
+            login_username.value = iparams.domain;
+            login_password.value = iparams.api_key;
+        }
+
+        // to validate login credentials
+        function validateTheCredentials(callback){
+            console.log('validation fired',login_username, login_username.value)
+            // if username field is empty
+            if(!login_username.value){
+                login_username.state = "warning";
+                return callback(false)
+            } 
+            // if password field is empty
+            if(!login_password.value){
+                login_password.state = "warning";
+                return callback(false)
+            }
+            login_btn.loading = true;
+            console.log("host",login_username.value.trim().includes(service_provider) ? login_username.value.trim() : login_username.value.trim() + "." + service_provider)
+            client.request.invokeTemplate(
+                "getAllTickets",
+                {
+                    context: {
+                        host: login_username.value.trim().includes(service_provider) ? login_username.value.trim() : login_username.value.trim() + "." + service_provider,
+                        api: login_password.value.trim(),
+                    },
+                })
+                .then((response) => {
+                    if(response && response.status === 200){
+                        login_btn.disabled = true;
+                        callback(true);
+                        console.log('response from api', response);
+                        toast.trigger({type:'success', content: "Validation Successful"}) ;
+                        login_btn.loading = false;
+                        freshservice_tab.disabled = false;
+                        service_field_container.innerHTML = '';
+                        generateFields();
+                        settings_tab.activeTabIndex = 1; // switching to next tab
+                    }
+                })
+                .catch((error) => {
+                    toast.trigger({type:'error', content: "Invalid Credentials"}) 
+                    console.error("api error", error);
+                    login_btn.loading = false;
+                    login_btn.disabled = false;
+                    callback(false);
+                });
+        }
+
+        function isValidUser(isValid){
+            return isValid
+        }
+
+        function validate(){
+            const isValid = validateTheCredentials(isValidUser);
+            console.log('is valid', isValid);
+            return isValid
+        }
+
+        function signup(){
+            console.log('signup function called');
+            const phone = trimTheString(signup_phone);
+            const company = trimTheString(signup_company);
+            const username = trimTheString(signup_username);
+            const password = trimTheString(signup_password);
+            console.log('company element', company,signup_company)
+            const signup_fields = [signup_username, signup_password, signup_company, signup_phone];
+
+            for(let i=0; i<signup_fields.length; i++){
+                if(!signup_fields[i].value){
+                    signup_fields[i].state = "warning";
+                    return
+                }
+            }
+        
+            const payload = {
+                username,
+                password,
+                phone,
+                company
+            }
+            console.log('payload', payload);
+            // todo: api call to create account and save the token in db
+        }
+
+
+
+        function trimTheString(element){
+            return element?.value?.trim()
+        }
+
+
+        function generateFields(){
+            // todo: fields should be fetched from api
+            const fields = ["domain", "api-key"];
+            let fields_to_add = '';
+            for(let i=0; i<fields.length; i++){
+                let fw_input_field = `<fw-input label="${fields[i]}" hint-text="Please enter ${fields[i]}" required clear-input id="service-field-${fields[i]}" > </fw-input><br>`;
+                fields_to_add = fields_to_add + fw_input_field;
+            }
+            service_field_container.innerHTML = fields_to_add;
+        }
+
+        // to validate the service credentials
+        function validateServiceCredentials(){
+            // todo: fields should be fetched from api
+            const fields = ["domain", "api-key"];
+            console.log('service validation triggered')
+        }
+
+    </script>
+    <!-- crayons -->
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js">
+    </script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"></script>
+</body>
+
+</html>

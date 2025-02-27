@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- "url": "index.html", -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konnectors</title>
+    <!-- crayons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/css/crayons-min.css" />
+</head>
+<style>
+    .iframe-inside-tabs{
+        height:400px;
+        width: 100%;
+    }
+    .font{
+       font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    }
+    #container{
+        height:800px;
+    }
+</style>
+<body>
+    <div class="font">
+        <p>Hi, Username</p>
+    </div>
+    <!-- tabs -->
+    <fw-tabs>
+        <fw-tab slot="tab" panel="connection-tab">Konnectors</fw-tab>
+        <fw-tab slot="tab" panel="logs-tab">Logs</fw-tab>
+        <fw-tab slot="tab" panel="billings-tab">Billings</fw-tab>
+      
+        <fw-tab-panel name="connection-tab">
+          <p class="font">Connections are displayed here</p>
+          <iframe name="connection-iframe" class="iframe-inside-tabs"></iframe>
+        </fw-tab-panel>
+
+        <fw-tab-panel name="logs-tab">
+            <p class="font">logs table comes here</p>
+          </fw-tab-panel>
+      
+        <fw-tab-panel name="billings-tab">
+            <p class="font">billing table comes here</p>
+        </fw-tabs>
+
+
+    <!-- crayons -->
+    <script type="module"
+    src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"></script>
+    <script src="../app/scripts/script.js"></script>
+</body>
+</html>
