@@ -44,7 +44,6 @@
             cursor: pointer;
         }
 
-
     </style>
 </head>
 
@@ -58,33 +57,43 @@
          <fw-tab slot="tab" panel="signup">Signup</fw-tab>
          <fw-tab-pannel name="signup">
             <br>
+            <!-- username field -->
             <fw-input label="Username" icon-left="at-the-rate" hint-text="Create your konnector's ipaas username"
             warning-text="Username field should not be empty" 
             placeholder="eg: Mark1123" required clear-input id="signup-username">
              </fw-input>
             <br>
+            <!-- email field -->
+            <fw-input label="Email" icon-left="email" hint-text="Create your konnector's ipaas email"
+            warning-text="email field should not be empty" error-text="Invalid email address" type="email"
+            placeholder="eg: someone@example.com" required clear-input id="signup-email">
+             </fw-input>
+            <br>
+            <!-- password field -->
             <fw-input label="Password" icon-left="password" hint-text="Create your konnector's ipaas password"
             warning-text="Password field should not be empty" type="password" 
             placeholder="eg: pass@w58ord" required clear-input id="signup-password">
              <fw-icon name="hidden" slot="input-suffix" id="signup-password-icon" class="password-icon"></fw-icon>
              </fw-input>
             <br>
+            <!-- company name field -->
             <fw-input label="Company" icon-left="company" hint-text="Please enter your company name"
             warning-text="Company name field should not be empty"  
             placeholder="eg: konnectify" required clear-input id="signup-company">
              </fw-input>
             <br>
-            <fw-input label="Phone" icon-left="phone" hint-text="Please enter your contact number"
-            warning-text="phone number field should not be empty" type="number" minlength="10" maxlength="10"
-            placeholder="eg: 8975xxx579" required clear-input id="signup-phone">
+            <!-- phone number field -->
+            <fw-input label="Phone" icon-left="phone" hint-text="Please enter your contact number with country code"
+            warning-text="phone number field should not be empty" type="text" minlength="10" maxlength="10"
+            placeholder="eg:+91 8975xxx579" required clear-input id="signup-phone">
              </fw-input>
             <br>
             <div id="signup-btn-container">
-                <fw-button id="back-btn">
-                    <fw-icon name="arrow-left"></fw-icon> &nbsp;
-                    go back
+                <fw-button id="back-btn" color="secondary">
+                    <!-- back button -->
+                    <fw-icon name="arrow-left"></fw-icon>&nbsp; Back  
                  </fw-button>
-
+                 <!-- signup button -->
                 <fw-button id="signup-btn">Signup</fw-button>
             </div>
             <br>
@@ -100,15 +109,17 @@
             <fw-tab slot="tab" panel="freshservice" disabled="true" id="freshservice-tab">Freshservice</fw-tab>
   
             <fw-tab-panel name="login">
-              <!-- credentials -->
+              <!-- login credentials -->
               <div id="login-container"> <br>
+                <!-- email field -->
                 <div id="input-container">
-                    <fw-input label="Username" icon-left="at-the-rate" hint-text="Please enter your konnector's ipaas username"
-                    warning-text="Username field should not be empty" 
-                    placeholder="eg: Mark1123" required clear-input id="login-username">
+                    <fw-input label="Email" icon-left="at-the-rate" hint-text="Please enter your konnector's ipaas email"
+                    warning-text="Email field should not be empty" type="email"
+                    placeholder="eg: someone@example.com" required clear-input id="login-email">
                 </fw-input>
             </div>
             <br>
+            <!-- password field -->
             <div id="password-container">
                 <fw-input label="Password" icon-left="password" hint-text="Please enter your konnector's ipaas password"
                 warning-text="Password field should not be empty"  type="password" 
@@ -146,44 +157,48 @@
 <script>
         // varibales declaration
         let is_login_successful = false;
+        let service_field_container = document.getElementById("service-validation"); // the product we are integrating 
         const service_provider = "freshservice.com";
-        const login_username = document.getElementById("login-username");
+        const login_email = document.getElementById("login-email");
         const login_password = document.getElementById("login-password");
         const login_btn = document.getElementById("login-btn");
         const signup_company = document.getElementById("signup-company");
         const signup_phone = document.getElementById("signup-phone");
         const signup_btn = document.getElementById("signup-btn");
-        const show_signup_page = document.getElementById("show-signup-page"); // previous showSignupPage
+        const show_signup_page = document.getElementById("show-signup-page"); 
         const signup_username = document.getElementById("signup-username");
         const signup_password = document.getElementById("signup-password");
+        const signup_email = document.getElementById("signup-email");
         const signup_page = document.getElementById("signup-page");
         const settings_page = document.getElementById("settings-page");
         const goto_signup = document.getElementById("show-signup-page");
         const go_back_btn = document.getElementById("back-btn");
         const toast = document.getElementById('toast-msg');
         const freshservice_tab = document.getElementById("freshservice-tab");
-        let service_field_container = document.getElementById("service-validation"); // the product we are integrating 
         const service_validation_btn = document.getElementById("service-validate-btn");
         const login_password_icon = document.getElementById("login-password-icon");      
         const signup_password_icon = document.getElementById("signup-password-icon");
-        const settings_tab = document.getElementById("settings-tab");      
+        const settings_tab = document.getElementById("settings-tab");
+        let access_token;
+        let base_url = "";  
 
         document.addEventListener("DOMContentLoaded", function () {
             app
                 .initialized()
                 .then(function (_client) {
                     window.client = _client;
-                    login_btn.addEventListener("click", () => validateTheCredentials(isValidUser));
-                    login_username.addEventListener("fwInput", () => login_username.state = "normal");
+                    login_btn.addEventListener("click", () => login(isValidUser));
+                    login_email.addEventListener("fwInput", () => login_email.state = "normal");
                     login_password.addEventListener("fwInput", () => login_password.state = "normal");
                     signup_phone.addEventListener("fwInput", () => {
                         signup_phone.errorText = "";
                         signup_phone.state = "normal";
                     });
-                    signup_username.addEventListener("fwInput", () =>  signup_username.state = "normal")
-                    signup_password.addEventListener("fwInput", () =>  signup_password.state = "normal")
-                    signup_company.addEventListener("fwInput", () =>  signup_company.state = "normal")
-                    signup_phone.addEventListener("fwInput", () =>  signup_phone.state = "normal")
+                    signup_username.addEventListener("fwInput", () =>  signup_username.state = "normal");
+                    signup_password.addEventListener("fwInput", () =>  signup_password.state = "normal");
+                    signup_company.addEventListener("fwInput", () =>  signup_company.state = "normal");
+                    signup_phone.addEventListener("fwInput", () =>  signup_phone.state = "normal");
+                    signup_email.addEventListener("fwInput", () =>  signup_email.state = "normal");
                     signup_btn.addEventListener("click", signup);
                     goto_signup.addEventListener("click", () => togglePage(true));
                     go_back_btn.addEventListener("click", () => togglePage(false));
@@ -217,52 +232,60 @@
 
 
         function postConfigs(){
-            const login_username = username.value.trim();
-            const login_password = password.value.trim();
+            const login_email = login_email.value.trim();
+            const login_password = login_password.value.trim();
             return {
-                username,
-                password 
+                email:login_email,
+                password:login_password,
+                access_token // access_token variable gets value once the user is signed up or logged in successfully
             }
         }
 
         function getConfigs(iparams){
-            login_username.value = iparams.domain;
-            login_password.value = iparams.api_key;
+            login_email.value = iparams.login_email;
+            login_password.value = iparams.login_password;
         }
 
         // to validate login credentials
-        function validateTheCredentials(callback){
-            console.log('validation fired',login_username, login_username.value)
-            // if username field is empty
-            if(!login_username.value){
-                login_username.state = "warning";
-                return callback(false)
+        function login(){
+            // todo: instead of cb set a flag to verify
+            console.log('validation fired',login_email, login_email.value)
+            // if email field is empty
+            if(!login_email.value){
+                login_email.state = "warning";
+                // callback(false)
+                return 
             } 
             // if password field is empty
             if(!login_password.value){
                 login_password.state = "warning";
-                return callback(false)
+                //  callback(false)
+                return
             }
             login_btn.loading = true;
-            console.log("host",login_username.value.trim().includes(service_provider) ? login_username.value.trim() : login_username.value.trim() + "." + service_provider)
+            console.log("host",login_email.value.trim().includes(service_provider) ? login_email.value.trim() : login_email.value.trim() + "." + service_provider)
             client.request.invokeTemplate(
-                "getAllTickets",
+                "login",
                 {
                     context: {
-                        host: login_username.value.trim().includes(service_provider) ? login_username.value.trim() : login_username.value.trim() + "." + service_provider,
-                        api: login_password.value.trim(),
+                        // todo: add base url
+                        base_url: base_url,
                     },
+                    body: JSON.stringify({
+                        email: trimTheString(login_email),
+                        password: trimTheString(login_password)
+                    })
                 })
                 .then((response) => {
-                    if(response && response.status === 200){
+                    if(response && response.user){
                         login_btn.disabled = true;
-                        callback(true);
+                        // callback(true);
                         console.log('response from api', response);
-                        toast.trigger({type:'success', content: "Validation Successful"}) ;
+                        toast.trigger({type:'success', content: "Login Successful"});
                         login_btn.loading = false;
                         freshservice_tab.disabled = false;
                         service_field_container.innerHTML = '';
-                        generateFields();
+                        generateFields(); // todo: get app schema + dynamic field creation
                         settings_tab.activeTabIndex = 1; // switching to next tab
                     }
                 })
@@ -271,47 +294,88 @@
                     console.error("api error", error);
                     login_btn.loading = false;
                     login_btn.disabled = false;
-                    callback(false);
+                    // callback(false);
                 });
         }
 
-        function isValidUser(isValid){
-            return isValid
-        }
+        // function isValidUser(isValid){
+        //     return isValid
+        // }
 
         function validate(){
-            const isValid = validateTheCredentials(isValidUser);
+            // const isValid = login(isValidUser);
             console.log('is valid', isValid);
             return isValid
         }
 
-        function signup(){
+        async function signup(){
+            try {
             console.log('signup function called');
             const phone = trimTheString(signup_phone);
             const company = trimTheString(signup_company);
             const username = trimTheString(signup_username);
             const password = trimTheString(signup_password);
-            console.log('company element', company,signup_company)
-            const signup_fields = [signup_username, signup_password, signup_company, signup_phone];
+            const email = trimTheString(signup_email);
+            const is_valid_email = isValidEmail(email);
+            let is_valid = true;
+            const signup_fields = [signup_username, signup_email, signup_password, signup_company, signup_phone];
 
             for(let i=0; i<signup_fields.length; i++){
                 if(!signup_fields[i].value){
                     signup_fields[i].state = "warning";
+                    signup_fields[i].setFocus();
+                    is_valid = false;
                     return
                 }
+            }
+
+            // validate email
+            if(!is_valid_email){
+                signup_email.state = "error";
+                signup_email.setFocus();
+                return
             }
         
             const payload = {
                 username,
+                email,
                 password,
                 phone,
                 company
             }
-            console.log('payload', payload);
-            // todo: api call to create account and save the token in db
+            // proceed further if all the fields contains value 
+            if(is_valid){
+            const signup_request = await client.request.invokeTemplate("signup", {
+                context:{
+                    base_url: base_url
+                },
+                body: JSON.stringify(payload)
+            });
+            const signup_response = await signup_request;
+            // look for token. If token is avilable then store the token in iparam
+            if(signup_response.access_token){
+                const user_email = signup_response.user.email;
+                access_token = signup_response.access_token;
+                // after successful registeration auto login the user
+                login_email.value = email; 
+                login_password.value = password;
+                login_btn.click(); 
+            } else {
+                toast.trigger({type:'error', content: "Token is missing"});
+                return
+            }
+            }
+            } catch (error) {
+               console.log('error in signup', error); 
+               toast.trigger({type:'error', content: "sorry, signup failed!"});
+            }
+
         }
 
-
+        function isValidEmail(email){
+            const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return regex.test(email);
+        }
 
         function trimTheString(element){
             return element?.value?.trim()
@@ -319,8 +383,15 @@
 
 
         function generateFields(){
+            // get fields from get app schema
+            client.request.invokeTemplate("getAppSchema", {
+                context: {
+                    base_url: base_url
+                }
+            });
             // todo: fields should be fetched from api
             const fields = ["domain", "api-key"];
+            // {fieldName: fieldType}
             let fields_to_add = '';
             for(let i=0; i<fields.length; i++){
                 let fw_input_field = `<fw-input label="${fields[i]}" hint-text="Please enter ${fields[i]}" required clear-input id="service-field-${fields[i]}" > </fw-input><br>`;
