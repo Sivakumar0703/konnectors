@@ -154,6 +154,7 @@
             </fw-tab-panel>
         </fw-tabs>
     </div>
+    
 <script>
         // varibales declaration
         let is_login_successful = false;
@@ -237,6 +238,7 @@
             return {
                 email:login_email,
                 password:login_password,
+                base_url,
                 access_token // access_token variable gets value once the user is signed up or logged in successfully
             }
         }
@@ -298,14 +300,9 @@
                 });
         }
 
-        // function isValidUser(isValid){
-        //     return isValid
-        // }
 
         function validate(){
-            // const isValid = login(isValidUser);
-            console.log('is valid', isValid);
-            return isValid
+            return false
         }
 
         async function signup(){
@@ -382,27 +379,55 @@
         }
 
 
-        function generateFields(){
+        async function generateFields(){
+        try {
             // get fields from get app schema
-            client.request.invokeTemplate("getAppSchema", {
+            const get_app_schema = await client.request.invokeTemplate("getAppSchema", {
                 context: {
                     base_url: base_url
                 }
             });
+            const response = await get_app_schema;
             // todo: fields should be fetched from api
-            const fields = ["domain", "api-key"];
+            const fields = response.fields;
             // {fieldName: fieldType}
             let fields_to_add = '';
             for(let i=0; i<fields.length; i++){
-                let fw_input_field = `<fw-input label="${fields[i]}" hint-text="Please enter ${fields[i]}" required clear-input id="service-field-${fields[i]}" > </fw-input><br>`;
-                fields_to_add = fields_to_add + fw_input_field;
+                const new_Element = createAppFields(fields[i]);
+                // if no field is returned from createAppFields
+                if(!new_Element){
+                    toast.trigger({type:'error', content: "Error in creating app field"});
+                    return
+                }
+                fields_to_add = fields_to_add + new_Element;
             }
             service_field_container.innerHTML = fields_to_add;
+        } catch (error) {
+            console.log("error in creating app fields", error);
+            toast.trigger({type:'error', content: "Fetching app schema failed"});
+        }  
+        }
+
+        function createAppFields(fieldData){
+            let element = '';
+            if(fieldData.type === "textbox" || fieldData.type === "textarea"){
+                element = `<fw-input label="${fieldData.name}" hint-text="${fieldData.required.message}" warn-text="${fieldData.pattern.message}"
+                required="${fieldData.required.value}" clear-input  placeholder="${fieldData.placeholder}" type="text" > 
+                </fw-input>`;
+                return element
+            } else if(fieldData.type === "password"){
+                element = `<fw-input label="${fieldData.name}" hint-text="${fieldData.required.message}" 
+                required="${fieldData.required.value}" clear-input  type="password" > 
+                </fw-input>`;
+                return element
+            } else {
+                return element
+            }
         }
 
         // to validate the service credentials
         function validateServiceCredentials(){
-            // todo: fields should be fetched from api
+            // todo: api will be provided to check the app validation
             const fields = ["domain", "api-key"];
             console.log('service validation triggered')
         }

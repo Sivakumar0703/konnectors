@@ -1,16 +1,4 @@
 {
-    "getAllTickets": {
-        "schema": {
-            "method": "GET",
-            "host": "<%= context.host %>",
-            "path": "/api/v2/tickets",
-            "headers": {
-                "Authorization": "Basic <%= encode(context.api + ':X') %>",
-                "Content-Type": "application/json"
-            }
-        }
-    },
-
     "login":{
         "schema":{
             "method": "POST",

@@ -4274,3 +4274,82 @@ To simulate product, app setup, and external events, visit - http://localhost:10
 2025-02-28 13:29:42.538 +0530 [debug] ([34mwatcher.js[0m) [31mBroadcasted "{"file":"config\\iparams.html"}" to all listeners.[0m
 2025-02-28 14:18:57.365 +0530 [debug] ([34mwatcher.js[0m) [31mBroadcasted "{"file":"config\\iparams.html"}" to all listeners.[0m
 2025-02-28 14:19:01.063 +0530 [debug] ([34mreport.js[0m) [31mGenerating hash for report.json file[0m
+2025-02-28 14:20:49.165 +0530 [debug] ([34mconfigs.js[0m) [31mloaded default configs as "{"updates":{"manifest_url":"https://cdn.freshdev.io/assets/fdk/updates.json","period":24},"log":{"level":"info"},"javascript":{"ecma_version":2020},"request":{"timeout":15000},"global_apps":{"enabled":false},"easel":{"enabled":false}}"[0m
+2025-02-28 14:20:49.172 +0530 [debug] ([34mfile.js[0m) [31mError while requiring C:\Users\ssiva\.fdk\configs.json: Cannot find module 'C:\Users\ssiva\.fdk\configs.json'
+Require stack:
+- C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\utils\file.js
+- C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\configs.js
+- C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\logger.js
+- C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\index.js[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mconfigs.js[0m) [31mloaded global configs as "{}"[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mconfigs.js[0m) [31mloaded local configs as "{"request":{"timeout":15000}}"[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mconfigs.js[0m) [31mloaded env configs as "{"updates":{},"log":{},"javascript":{},"request":{"timeout":15000}}"[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mconfigs.js[0m) [31mloaded resolved configs as "{"updates":{"manifest_url":"https://cdn.freshdev.io/assets/fdk/updates.json","period":24},"log":{"level":"info"},"javascript":{"ecma_version":2020},"request":{"timeout":15000},"global_apps":{"enabled":false},"easel":{"enabled":false}}"[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mlogger.js[0m) [31mStarting FDK in node v18.20.6 on win32[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34msequelize.js[0m) [31msetting up sqilite at "D:\freshwork\Projects\df/.fdk/store.sqlite"[0m
+2025-02-28 14:20:49.173 +0530 [debug] ([34mdata.js[0m) [31mRead {"version_details":{"cli":{"deprecated":{"version":"<9","message":"This FDK version has been deprecated. There will be no further feature updates to this version. For a seamless app-building experience, ensure to move to the latest FDK version. For more information, see https://developers.freshworks.com/docs/app-sdk/v2.3/freshdesk/migration-guide/#migrate-to-the-latest-platform-version."},"forced":{"version":"7.0.0","command":"npm install https://dl.freshdev.io/cli/fdk-7.0.0.tgz -g","message":"Your FDK version has been forced updated to v7.0.0, please visit https://community.developers.freshworks.com/t/fdk-v7-0-announcing-node-js-v12-and-es6-support/3606 to know more"},"latest":{"version":"9.3.1","command":"npm install https://cdn.freshdev.io/fdk/latest.tgz -g","message":"You are on the latest FDK version. For information on the features available as part of this FDK version, see https://developers.freshworks.com/docs/?tab=modules."}},"addon":{"version":"2.0.8","url":"https://cdn.freshdev.io/assets/fdk/addons/addon.zip"}},"last_updated":{"time_stamp":1740658736491}}[0m
+2025-02-28 14:20:49.174 +0530 [debug] ([34mupdater.js[0m) [31mlast check less than 24 hours ago, not looking for updates[0m
+2025-02-28 14:20:49.179 +0530 [debug] ([34mindex.js[0m) [31mrunning with opts {}[0m
+2025-02-28 14:20:57.853 +0530 [debug] ([34mdata.js[0m) [31mRead {"version_details":{"cli":{"deprecated":{"version":"<9","message":"This FDK version has been deprecated. There will be no further feature updates to this version. For a seamless app-building experience, ensure to move to the latest FDK version. For more information, see https://developers.freshworks.com/docs/app-sdk/v2.3/freshdesk/migration-guide/#migrate-to-the-latest-platform-version."},"forced":{"version":"7.0.0","command":"npm install https://dl.freshdev.io/cli/fdk-7.0.0.tgz -g","message":"Your FDK version has been forced updated to v7.0.0, please visit https://community.developers.freshworks.com/t/fdk-v7-0-announcing-node-js-v12-and-es6-support/3606 to know more"},"latest":{"version":"9.3.1","command":"npm install https://cdn.freshdev.io/fdk/latest.tgz -g","message":"You are on the latest FDK version. For information on the features available as part of this FDK version, see https://developers.freshworks.com/docs/?tab=modules."}},"addon":{"version":"2.0.8","url":"https://cdn.freshdev.io/assets/fdk/addons/addon.zip"}},"last_updated":{"time_stamp":1740658736491}}[0m
+2025-02-28 14:20:57.898 +0530 [debug] ([34mmanifest.js[0m) [31mReloading manifest with {"platform-version":"2.3","product":{"freshservice":{"location":{"full_page_app":{"url":"../config/iparams.html","icon":"../app/styles/images/icon.svg"}},"requests":{"getAllTickets":{}},"events":{"onTicketCreate":{"handler":"onTicketCreateHandler"}}}},"engines":{"node":"18.20.6","fdk":"9.2.0"}}.[0m
+2025-02-28 14:20:57.898 +0530 [debug] ([34mmanifest.js[0m) [31mInferred db,backend as features.[0m
+2025-02-28 14:20:59.685 +0530 [debug] ([34mdata.js[0m) [31mRead {"version_details":{"cli":{"deprecated":{"version":"<9","message":"This FDK version has been deprecated. There will be no further feature updates to this version. For a seamless app-building experience, ensure to move to the latest FDK version. For more information, see https://developers.freshworks.com/docs/app-sdk/v2.3/freshdesk/migration-guide/#migrate-to-the-latest-platform-version."},"forced":{"version":"7.0.0","command":"npm install https://dl.freshdev.io/cli/fdk-7.0.0.tgz -g","message":"Your FDK version has been forced updated to v7.0.0, please visit https://community.developers.freshworks.com/t/fdk-v7-0-announcing-node-js-v12-and-es6-support/3606 to know more"},"latest":{"version":"9.3.1","command":"npm install https://cdn.freshdev.io/fdk/latest.tgz -g","message":"You are on the latest FDK version. For information on the features available as part of this FDK version, see https://developers.freshworks.com/docs/?tab=modules."}},"addon":{"version":"2.0.8","url":"https://cdn.freshdev.io/assets/fdk/addons/addon.zip"}},"last_updated":{"time_stamp":1740658736491}}[0m
+2025-02-28 14:21:36.787 +0530 [debug] ([34mdata.js[0m) [31mRead {"version_details":{"cli":{"deprecated":{"version":"<9","message":"This FDK version has been deprecated. There will be no further feature updates to this version. For a seamless app-building experience, ensure to move to the latest FDK version. For more information, see https://developers.freshworks.com/docs/app-sdk/v2.3/freshdesk/migration-guide/#migrate-to-the-latest-platform-version."},"forced":{"version":"7.0.0","command":"npm install https://dl.freshdev.io/cli/fdk-7.0.0.tgz -g","message":"Your FDK version has been forced updated to v7.0.0, please visit https://community.developers.freshworks.com/t/fdk-v7-0-announcing-node-js-v12-and-es6-support/3606 to know more"},"latest":{"version":"9.3.1","command":"npm install https://cdn.freshdev.io/fdk/latest.tgz -g","message":"You are on the latest FDK version. For information on the features available as part of this FDK version, see https://developers.freshworks.com/docs/?tab=modules."}},"addon":{"version":"2.0.8","url":"https://cdn.freshdev.io/assets/fdk/addons/addon.zip"}},"last_updated":{"time_stamp":1740658736491}}[0m
+2025-02-28 14:21:54.944 +0530 [debug] ([34mvalidate.js[0m) [31masked to skip the following validations, [0m
+2025-02-28 14:21:54.945 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator actions[0m
+2025-02-28 14:21:54.946 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator requests[0m
+2025-02-28 14:21:54.946 +0530 [debug] ([34mrequests.js[0m) [31mvalidating request template for "getAllTickets"[0m
+2025-02-28 14:21:54.947 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator app-dir[0m
+2025-02-28 14:21:54.949 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator config-dir[0m
+2025-02-28 14:21:54.949 +0530 [debug] ([34mconfig-dir.js[0m) [31mChecking to see if D:\freshwork\Projects\df/config/ exists.[0m
+2025-02-28 14:21:54.949 +0530 [debug] ([34mconfig-dir.js[0m) [31mFetched the following config files assets,iparams.html,requests.json[0m
+2025-02-28 14:21:54.949 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator custom-objects[0m
+2025-02-28 14:21:54.950 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator event[0m
+2025-02-28 14:21:54.961 +0530 [debug] ([34mevent.js[0m) [31mFound ["onTicketCreateHandler"] as exported functions.[0m
+2025-02-28 14:21:54.962 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator iparam[0m
+2025-02-28 14:21:55.102 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator lint[0m
+2025-02-28 14:21:55.102 +0530 [debug] ([34mlint.js[0m) [31mpassed fix flag: undefined[0m
+2025-02-28 14:21:55.105 +0530 [debug] ([34mlint.js[0m) [31mRunning the following lints on the file app\scripts\script.js : no-caller,no-process-env,complexity,max-nested-callbacks,handle-callback-err,no-eval,no-alert,no-debugger,no-unreachable,no-unpkg-cdn,no-unhandled-promise,no-logging-rejections,no-non-client-request-model,no-deprecated-apis,no-proxy-requests,no-cross-scope-assign[0m
+2025-02-28 14:21:55.498 +0530 [debug] ([34mlint.js[0m) [31mRunning the following lints on the file server\lib\handle-response.js : no-caller,no-process-env,complexity,max-nested-callbacks,handle-callback-err,no-eval,no-alert,no-debugger,no-unreachable,no-unpkg-cdn,no-unhandled-promise,no-logging-rejections,no-non-client-request-model,no-deprecated-apis,no-proxy-requests,no-dependency-mismatch,no-empty-function,no-unused-vars[0m
+2025-02-28 14:21:55.604 +0530 [debug] ([34mlint.js[0m) [31mRunning the following lints on the file server\server.js : no-caller,no-process-env,complexity,max-nested-callbacks,handle-callback-err,no-eval,no-alert,no-debugger,no-unreachable,no-unpkg-cdn,no-unhandled-promise,no-logging-rejections,no-non-client-request-model,no-deprecated-apis,no-proxy-requests,no-dependency-mismatch,no-empty-function,no-unused-vars[0m
+2025-02-28 14:21:55.616 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator manifest[0m
+2025-02-28 14:21:55.616 +0530 [debug] ([34mvalidate.js[0m) [31mskipping validator manifest-dependency[0m
+2025-02-28 14:21:55.616 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator oauth[0m
+2025-02-28 14:21:55.616 +0530 [debug] ([34mvalidate.js[0m) [31mskipping validator pkgsize[0m
+2025-02-28 14:21:55.617 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator schema[0m
+2025-02-28 14:21:55.617 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator version-check[0m
+2025-02-28 14:21:55.617 +0530 [debug] ([34mvalidate.js[0m) [31mrunning validator app-settings[0m
+2025-02-28 14:21:55.621 +0530 [debug] ([34mrequests.js[0m) [31mvalidating request template for "login"[0m
+2025-02-28 14:21:55.622 +0530 [debug] ([34mrequests.js[0m) [31mvalidating request template for "signup"[0m
+2025-02-28 14:21:55.641 +0530 [debug] ([34mrequests.js[0m) [31mvalidating request template for "getAppSchema"[0m
+2025-02-28 14:21:55.643 +0530 [warn] Please ensure that the following are addressed for quick review process:
+2025-02-28 14:21:55.644 +0530 [warn] [33m⚠[39m request template 'login' is declared but not associated with product
+2025-02-28 14:21:55.645 +0530 [warn] [33m⚠[39m request template 'signup' is declared but not associated with product
+2025-02-28 14:21:55.645 +0530 [warn] [33m⚠[39m request template 'getAppSchema' is declared but not associated with product
+2025-02-28 14:21:55.646 +0530 [warn] 
+2025-02-28 14:21:55.647 +0530 [debug] ([34mwatcher.js[0m) [31mPreparing to watch the following files ./app,./config,./manifest.json[0m
+2025-02-28 14:21:55.653 +0530 [debug] ([34minstall.js[0m) [31mdependency installer called with {}[0m
+2025-02-28 14:21:55.653 +0530 [debug] ([34mdata.js[0m) [31mRead {"report_hash":"fa33ec54f6d36794becce1a7a0a9584cc8d7554d7d0121a6fba61f45f384bc8d","df_101_101_freshservice":{"df_101_101_custom_iparams":{}}}[0m
+2025-02-28 14:21:55.654 +0530 [debug] ([34mcustom-objects.js[0m) [31mto force or not? undefined[0m
+2025-02-28 14:21:55.654 +0530 [debug] ([34mcustom-objects.js[0m) [31mbeginning to re-sync db[0m
+2025-02-28 14:21:56.175 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\bigint-pivot.js"[0m
+2025-02-28 14:21:56.219 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\entity-field-choice.js"[0m
+2025-02-28 14:21:56.240 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\entity-field.js"[0m
+2025-02-28 14:21:56.261 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\entity.js"[0m
+2025-02-28 14:21:56.282 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\record.js"[0m
+2025-02-28 14:21:56.322 +0530 [debug] ([34mindex.js[0m) [31mloading model at "C:\Users\ssiva\AppData\Roaming\nvm\v18.20.6\node_modules\fdk\lib\models\string-pivot.js"[0m
+2025-02-28 14:21:56.373 +0530 [debug] ([34mdata.js[0m) [31mRead {"report_hash":"fa33ec54f6d36794becce1a7a0a9584cc8d7554d7d0121a6fba61f45f384bc8d","df_101_101_freshservice":{"df_101_101_custom_iparams":{}}}[0m
+2025-02-28 14:21:56.374 +0530 [debug] ([34mcustom-objects.js[0m) [31mupdated local store with latest entity hash[0m
+2025-02-28 14:21:56.375 +0530 [info] Starting local testing server at http://*:10001/    
+Append 'dev=true' to your Freshservice account URL to start testing    
+e.g. https://domain.freshservice.com/helpdesk/tickets/1?dev=true    
+Quit the server with Control-C.
+2025-02-28 14:21:56.377 +0530 [info] 
+To test the installation page, visit - http://localhost:10001/custom_configs
+2025-02-28 14:21:56.379 +0530 [info] 
+To simulate product, app setup, and external events, visit - http://localhost:10001/web/test
+2025-02-28 14:21:56.379 +0530 [info] Populating test data with events found in the app
+2025-02-28 15:47:13.233 +0530 [debug] ([34mwatcher.js[0m) [31mBroadcasted "{"file":"config\\requests.json"}" to all listeners.[0m
+2025-02-28 15:47:26.824 +0530 [debug] ([34mwatcher.js[0m) [31mBroadcasted "{"file":"config\\iparams.html"}" to all listeners.[0m
+2025-02-28 15:50:30.864 +0530 [debug] ([34mwatcher.js[0m) [31mBroadcasted "{"file":"config\\iparams.html"}" to all listeners.[0m
+2025-02-28 15:50:36.600 +0530 [debug] ([34mreport.js[0m) [31mGenerating hash for report.json file[0m
