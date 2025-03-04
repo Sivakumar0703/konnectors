@@ -13,13 +13,5 @@
             "host": "<%= context.base_url %>",
             "path": "/sign_up"
         }
-    },
-
-    "getAppSchema": {
-        "schema": {
-            "method": "GET",
-            "host": "<%= context.base_url %>",
-            "path": "/apps/123"
-        }
     }
 }

@@ -9,14 +9,24 @@
         }
       },
       "requests": {
-        "getAllTickets": {}
+        "login": {},
+        "signup": {}
       },
       "events": {
-        "onTicketCreate": {
-          "handler": "onTicketCreateHandler"
+        "onAppInstall": {
+          "handler": "onAppInstallCallback"
         }
+      },
+      "functions": {
+        "getAppSchema": {},
+        "createConnection": {},
+        "saveConnection": {},
+        "editConnection": {}
       }
     }
+  },
+  "dependencies": {
+    "axios": "1.7.9"
   },
   "engines": {
     "node": "18.20.6",

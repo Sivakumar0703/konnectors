@@ -22,7 +22,7 @@
             color:blue;
         }
 
-        #login-btn-container, #signup-btn-container, #service-validation-btn-container{
+        #login-btn-container, #signup-btn-container, .tab-validation-btn-container{
             display: flex;
             justify-content: center;
         }
@@ -105,9 +105,12 @@
     <!-- settings page tab -->
     <div id="settings-page">
         <fw-tabs id="settings-tab">
-            <fw-tab slot="tab" panel="login">Login</fw-tab>
-            <fw-tab slot="tab" panel="freshservice" disabled="true" id="freshservice-tab">Freshservice</fw-tab>
+            <fw-tab slot="tab" panel="login" id="tab-1">Login/Signup</fw-tab>
+            <!-- disabled="true" -->
+            <fw-tab slot="tab" panel="freshservice"  id="tab-2">Connect Freshservice</fw-tab>
+            <fw-tab slot="tab" panel="ukg" id="tab-3">Connect Ukg</fw-tab>
   
+            <!-- login tab -->
             <fw-tab-panel name="login">
               <!-- login credentials -->
               <div id="login-container"> <br>
@@ -142,295 +145,95 @@
         <br>
         </div>
             </fw-tab-panel>
-  
+
+            <!-- freshservice connection tab -->
             <fw-tab-panel name="freshservice">
-                <div id="service-validation">
+                <div id="tab2-fields-container">
 
                 </div>
 
-                <div id="service-validation-btn-container">
-                    <fw-button id="service-validate-btn">validate</fw-button>
+                <div class="tab-validation-btn-container">
+                    <fw-button id="tab2-validate-btn">validate</fw-button>
+                </div>
+            </fw-tab-panel>
+
+            <!-- ukg connection tab -->
+             <!-- app-freshservice/connection -->
+            <fw-tab-panel name="ukg">
+                <div id="tab3-fields-container">
+
+                </div>
+                
+
+                <div class="tab-validation-btn-container">
+                    <fw-button id="tab3-validate-btn">validate</fw-button>
                 </div>
             </fw-tab-panel>
         </fw-tabs>
     </div>
-    
+   
+         <!-- iparams script file  -->
+         <script src="./assets/scripts/iparams.js"></script>
 <script>
-        // varibales declaration
-        let is_login_successful = false;
-        let service_field_container = document.getElementById("service-validation"); // the product we are integrating 
-        const service_provider = "freshservice.com";
-        const login_email = document.getElementById("login-email");
-        const login_password = document.getElementById("login-password");
-        const login_btn = document.getElementById("login-btn");
-        const signup_company = document.getElementById("signup-company");
-        const signup_phone = document.getElementById("signup-phone");
-        const signup_btn = document.getElementById("signup-btn");
-        const show_signup_page = document.getElementById("show-signup-page"); 
-        const signup_username = document.getElementById("signup-username");
-        const signup_password = document.getElementById("signup-password");
-        const signup_email = document.getElementById("signup-email");
-        const signup_page = document.getElementById("signup-page");
-        const settings_page = document.getElementById("settings-page");
-        const goto_signup = document.getElementById("show-signup-page");
-        const go_back_btn = document.getElementById("back-btn");
-        const toast = document.getElementById('toast-msg');
-        const freshservice_tab = document.getElementById("freshservice-tab");
-        const service_validation_btn = document.getElementById("service-validate-btn");
-        const login_password_icon = document.getElementById("login-password-icon");      
-        const signup_password_icon = document.getElementById("signup-password-icon");
-        const settings_tab = document.getElementById("settings-tab");
-        let access_token;
-        let base_url = "";  
+    console.log('from iparams.html');
 
-        document.addEventListener("DOMContentLoaded", function () {
-            app
-                .initialized()
-                .then(function (_client) {
-                    window.client = _client;
-                    login_btn.addEventListener("click", () => login(isValidUser));
-                    login_email.addEventListener("fwInput", () => login_email.state = "normal");
-                    login_password.addEventListener("fwInput", () => login_password.state = "normal");
-                    signup_phone.addEventListener("fwInput", () => {
-                        signup_phone.errorText = "";
-                        signup_phone.state = "normal";
-                    });
-                    signup_username.addEventListener("fwInput", () =>  signup_username.state = "normal");
-                    signup_password.addEventListener("fwInput", () =>  signup_password.state = "normal");
-                    signup_company.addEventListener("fwInput", () =>  signup_company.state = "normal");
-                    signup_phone.addEventListener("fwInput", () =>  signup_phone.state = "normal");
-                    signup_email.addEventListener("fwInput", () =>  signup_email.state = "normal");
-                    signup_btn.addEventListener("click", signup);
-                    goto_signup.addEventListener("click", () => togglePage(true));
-                    go_back_btn.addEventListener("click", () => togglePage(false));
-                    service_validation_btn.addEventListener("click" , validateServiceCredentials);
-                    login_password_icon.addEventListener("click", () => tooglePasswordVisiblity(login_password, login_password_icon));
-                    signup_password_icon.addEventListener("click", () => tooglePasswordVisiblity(signup_password, signup_password_icon));
-                })
-                .catch(function (err) {
-                    console.error("error in app initialization", err);
-                });
-        });
-
-        function tooglePasswordVisiblity(inputElement, icon){
-            const input_type = inputElement.type;
-            console.log("input type", input_type);
-            if(input_type === "password"){
-                inputElement.type = "text";
-                icon.name = "visible";
-            } else {
-                inputElement.type = "password";
-                icon.name = "hidden";
-            }
+    function getValueFromElement(elementId){
+        const element = document.getElementById(elementId);
+        const value = element.value?.trim();
+        if(!value){
+            toast.trigger({type:'error', content: "Error in postConfigs"});
+            return
         }
+        return value
+    }
+   
 
-        // to toggle between login and signup page
-        function togglePage(showLogin){
-            console.log("show login page", showLogin)
-            settings_page.style.display = showLogin ? "none" : "block";
-            signup_page.style.display = showLogin ? "block" : "none";
+    function getElementUsingId(id){
+        const element = document.getElementById(id);
+        if(!element){
+            toast.trigger({type:'error', content: "Error in getConfigs"});
+            return 
         }
+        return element
+    }
+    // let base_url;
+    // let access_token;
 
+    function postConfigs(){
+    const login_email = login_email.value.trim();
+    const login_password = login_password.value.trim();
+    const tab2_domain = getValueFromElement("tab2-url");
+    const tab2_apikey = getValueFromElement("tab2-api");
+    const tab2_connection_name = getValueFromElement("tab2-connection-name");
+    const tab3_domain = getValueFromElement("tab3-url");
+    const tab3_apikey = getValueFromElement("tab3-api");
+    const tab3_connection_name = getValueFromElement("tab3-connection-name");
+    return {
+        email:login_email,
+        password:login_password,
+        tab2_domain,
+        tab2_apikey,
+        tab2_connection_name,
+        tab3_domain,
+        tab3_apikey,
+        tab3_connection_name 
+        // base_url,
+        // access_token // access_token variable gets value once the user is signed up or logged in successfully
+    }
+    }
 
-        function postConfigs(){
-            const login_email = login_email.value.trim();
-            const login_password = login_password.value.trim();
-            return {
-                email:login_email,
-                password:login_password,
-                base_url,
-                access_token // access_token variable gets value once the user is signed up or logged in successfully
-            }
-        }
-
-        function getConfigs(iparams){
-            login_email.value = iparams.login_email;
-            login_password.value = iparams.login_password;
-        }
-
-        // to validate login credentials
-        function login(){
-            // todo: instead of cb set a flag to verify
-            console.log('validation fired',login_email, login_email.value)
-            // if email field is empty
-            if(!login_email.value){
-                login_email.state = "warning";
-                // callback(false)
-                return 
-            } 
-            // if password field is empty
-            if(!login_password.value){
-                login_password.state = "warning";
-                //  callback(false)
-                return
-            }
-            login_btn.loading = true;
-            console.log("host",login_email.value.trim().includes(service_provider) ? login_email.value.trim() : login_email.value.trim() + "." + service_provider)
-            client.request.invokeTemplate(
-                "login",
-                {
-                    context: {
-                        // todo: add base url
-                        base_url: base_url,
-                    },
-                    body: JSON.stringify({
-                        email: trimTheString(login_email),
-                        password: trimTheString(login_password)
-                    })
-                })
-                .then((response) => {
-                    if(response && response.user){
-                        login_btn.disabled = true;
-                        // callback(true);
-                        console.log('response from api', response);
-                        toast.trigger({type:'success', content: "Login Successful"});
-                        login_btn.loading = false;
-                        freshservice_tab.disabled = false;
-                        service_field_container.innerHTML = '';
-                        generateFields(); // todo: get app schema + dynamic field creation
-                        settings_tab.activeTabIndex = 1; // switching to next tab
-                    }
-                })
-                .catch((error) => {
-                    toast.trigger({type:'error', content: "Invalid Credentials"}) 
-                    console.error("api error", error);
-                    login_btn.loading = false;
-                    login_btn.disabled = false;
-                    // callback(false);
-                });
-        }
-
-
-        function validate(){
-            return false
-        }
-
-        async function signup(){
-            try {
-            console.log('signup function called');
-            const phone = trimTheString(signup_phone);
-            const company = trimTheString(signup_company);
-            const username = trimTheString(signup_username);
-            const password = trimTheString(signup_password);
-            const email = trimTheString(signup_email);
-            const is_valid_email = isValidEmail(email);
-            let is_valid = true;
-            const signup_fields = [signup_username, signup_email, signup_password, signup_company, signup_phone];
-
-            for(let i=0; i<signup_fields.length; i++){
-                if(!signup_fields[i].value){
-                    signup_fields[i].state = "warning";
-                    signup_fields[i].setFocus();
-                    is_valid = false;
-                    return
-                }
-            }
-
-            // validate email
-            if(!is_valid_email){
-                signup_email.state = "error";
-                signup_email.setFocus();
-                return
-            }
-        
-            const payload = {
-                username,
-                email,
-                password,
-                phone,
-                company
-            }
-            // proceed further if all the fields contains value 
-            if(is_valid){
-            const signup_request = await client.request.invokeTemplate("signup", {
-                context:{
-                    base_url: base_url
-                },
-                body: JSON.stringify(payload)
-            });
-            const signup_response = await signup_request;
-            // look for token. If token is avilable then store the token in iparam
-            if(signup_response.access_token){
-                const user_email = signup_response.user.email;
-                access_token = signup_response.access_token;
-                // after successful registeration auto login the user
-                login_email.value = email; 
-                login_password.value = password;
-                login_btn.click(); 
-            } else {
-                toast.trigger({type:'error', content: "Token is missing"});
-                return
-            }
-            }
-            } catch (error) {
-               console.log('error in signup', error); 
-               toast.trigger({type:'error', content: "sorry, signup failed!"});
-            }
-
-        }
-
-        function isValidEmail(email){
-            const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            return regex.test(email);
-        }
-
-        function trimTheString(element){
-            return element?.value?.trim()
-        }
-
-
-        async function generateFields(){
-        try {
-            // get fields from get app schema
-            const get_app_schema = await client.request.invokeTemplate("getAppSchema", {
-                context: {
-                    base_url: base_url
-                }
-            });
-            const response = await get_app_schema;
-            // todo: fields should be fetched from api
-            const fields = response.fields;
-            // {fieldName: fieldType}
-            let fields_to_add = '';
-            for(let i=0; i<fields.length; i++){
-                const new_Element = createAppFields(fields[i]);
-                // if no field is returned from createAppFields
-                if(!new_Element){
-                    toast.trigger({type:'error', content: "Error in creating app field"});
-                    return
-                }
-                fields_to_add = fields_to_add + new_Element;
-            }
-            service_field_container.innerHTML = fields_to_add;
-        } catch (error) {
-            console.log("error in creating app fields", error);
-            toast.trigger({type:'error', content: "Fetching app schema failed"});
-        }  
-        }
-
-        function createAppFields(fieldData){
-            let element = '';
-            if(fieldData.type === "textbox" || fieldData.type === "textarea"){
-                element = `<fw-input label="${fieldData.name}" hint-text="${fieldData.required.message}" warn-text="${fieldData.pattern.message}"
-                required="${fieldData.required.value}" clear-input  placeholder="${fieldData.placeholder}" type="text" > 
-                </fw-input>`;
-                return element
-            } else if(fieldData.type === "password"){
-                element = `<fw-input label="${fieldData.name}" hint-text="${fieldData.required.message}" 
-                required="${fieldData.required.value}" clear-input  type="password" > 
-                </fw-input>`;
-                return element
-            } else {
-                return element
-            }
-        }
-
-        // to validate the service credentials
-        function validateServiceCredentials(){
-            // todo: api will be provided to check the app validation
-            const fields = ["domain", "api-key"];
-            console.log('service validation triggered')
-        }
+    function getConfigs(iparams){
+        generateFields('base_url', 'freshservice');
+        generateFields('base_url', 'ukg');
+        login_email.value = iparams.login_email;
+        login_password.value = iparams.login_password;
+        getElementUsingId("tab2-url").value = iparams.tab2_domain ;
+        getElementUsingId("tab2-api").value = iparams.tab2_apikey ;
+        getElementUsingId("tab2-connection-name").value = iparams.tab2_connection_name ;
+        getElementUsingId("tab3-url").value = iparams.tab3_url ;
+        getElementUsingId("tab3-api").value = iparams.tab3_apikey ;
+        getElementUsingId("tab2-connection-name").value = iparams.tab3_connection_name ;
+    }
 
     </script>
     <!-- crayons -->
@@ -438,6 +241,7 @@
         src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js">
     </script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"></script>
+
 </body>
 
 </html>
