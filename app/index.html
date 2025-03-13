@@ -7,6 +7,8 @@
     <title>Konnectors</title>
     <!-- crayons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/css/crayons-min.css" />
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="{{{appclient}}}"></script>
 </head>
 <style>
     .iframe-inside-tabs{
@@ -22,8 +24,8 @@
 </style>
 <body>
     <div class="font">
-        <p>Hi, Username</p>
     </div>
+    <fw-toast id="toast-msg"></fw-toast>
     <!-- tabs -->
     <fw-tabs>
         <fw-tab slot="tab" panel="connection-tab">Konnectors</fw-tab>
@@ -31,8 +33,26 @@
         <fw-tab slot="tab" panel="billings-tab">Billings</fw-tab>
       
         <fw-tab-panel name="connection-tab">
-          <p class="font">Connections are displayed here</p>
-          <iframe name="connection-iframe" class="iframe-inside-tabs"></iframe>
+            <br>
+            <div id="list-konnectors-container">
+                <table id="konnector-table">
+                    <thead>
+                    <tr>
+                      <th>S.NO</th>
+                      <th>DESCRIPTION</th>
+                      <th>OPTIONS</th>
+                    </tr>
+                    </thead>
+                    <tbody id="konnector-table-body">
+                    </tbody>
+                    </table>
+            </div>
+          <div id="iframe-container" class="hide">
+            <fw-button color="primary" id="iframe-back-btn"> Back </fw-button> <br> <br>
+            <iframe name="connection-iframe" class="iframe-inside-tabs">
+
+            </iframe>
+          </div>
         </fw-tab-panel>
 
         <fw-tab-panel name="logs-tab">
@@ -40,7 +60,72 @@
           </fw-tab-panel>
       
         <fw-tab-panel name="billings-tab">
-            <p class="font">billing table comes here</p>
+            <br>
+            <h2 class="font">Billings & Plan Subscription</h2>
+            <div id="billings-container">
+                <div id="dashboard">
+                    <!-- left side -->
+                    <div class="dashboard-card" id="status-container" class="card" style="flex-grow: 1;">
+                        <h4>Task Consumed</h4>
+                        <p>A task is a single step performing an app-reliant action in a konnector</p> <br>
+                        <!-- <div id="progress-container"></div> -->
+                       <div id="gauge">
+                        
+                        <!-- <div class="wrapper">   -->
+                            <div class="semi-donut">
+
+                            </div>
+                            
+                          <div id="status-indicator">
+                            <div> <div class="indicator" style="background-color: #12344d;"></div> <span>Tasks Consumed (30%)</span> </div>
+                            <div> <div class="indicator" style="background-color: #92a2b1;"></div> <span>Total remaining (70%)</span> </div>
+                          </div>
+                          <!-- </div> -->
+                       </div>
+                        <hr> <br>
+                        <div>
+                            <div style="display: flex;justify-content: space-between;">
+                                <h4 style="display: inline-block;">Need Aditional Task?</h4> 
+                                <h4 style="display: inline-block;">Tasks Reset on</h4> 
+                            </div>
+                            <h5 class="link">Get Add-ons</h5>
+                        </div>
+                    </div>
+                    <!-- right side -->
+                     <div class="dashboard-card" id="current-plan-container" class="card" style="flex-grow: 1;">
+                        <h4>Current Plan Details</h4>
+                        <div style="display: flex;justify-content: space-between;">
+                           <div>
+                            <p>user name</p>
+                            <p>billing.subscriptionId</p>
+                            <button class="btn"> Manage Plan </button>
+                           </div>
+                           <div style="text-align: right;">
+                            <h4 style="display: inline-block;margin-bottom: 15px;">Enterprise Plan</h4>
+                            <fw-pill color="blue">
+                                Response Received
+                            </fw-pill>
+                            <p class="link">View plan futures</p>
+                           </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <p>Subscription cycle</p>
+                            <fw-pill color="green">
+                             billing.cycle
+                            </fw-pill>
+                        </div> <br>
+                        <hr> <br>
+                        <div class="card-details">
+                            <h4 style="display: inline-block;">Your Add-ons</h4>
+                            <span>billing.addon</span>
+                        </div> 
+                        <div class="card-details">
+                            <span>Additional 10k task per add-on</span>
+                            <span class="link">Manage Add-ons</span>
+                        </div>
+                     </div>
+                </div>
+            </div>
         </fw-tabs>
 
 
@@ -48,6 +133,6 @@
     <script type="module"
     src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"></script>
-    <script src="../app/scripts/script.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 </html>

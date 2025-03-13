@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- ../config/iparams.html -->
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,39 +12,7 @@
     <!-- external css -->
      <!-- <link rel="stylesheet" href="./assets/iparams.css" /> -->
     <script src="{{{appclient}}}"></script>
-    <style>
-        body{
-            font-family:Open Sans,Helvetica Neue,sans-serif;
-        }
-
-        #show-signup-page{
-            cursor: pointer;
-            color:blue;
-        }
-
-        #login-btn-container, #signup-btn-container, .tab-validation-btn-container{
-            display: flex;
-            justify-content: center;
-        }
-
-        #signup-page{
-            display: none;
-        }  
-        
-        .font{
-            font-family:Open Sans,Helvetica Neue,sans-serif;
-        }
-
-        #signup-btn{
-            margin-left: 10px;
-        }
-
-        .password-icon{
-            margin-left: 15px;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./assets/style/style.css" />
 </head>
 
 <body>
@@ -125,7 +93,7 @@
             <!-- password field -->
             <div id="password-container">
                 <fw-input label="Password" icon-left="password" hint-text="Please enter your konnector's ipaas password"
-                warning-text="Password field should not be empty"  type="password" 
+                warning-text="Password field should not be empty"  type="password"  
                 placeholder="eg: pass@w58ord" required clear-input id="login-password">
                     <fw-icon name="hidden" slot="input-suffix" id="login-password-icon" class="password-icon"></fw-icon>
             </fw-input> 
@@ -148,7 +116,7 @@
 
             <!-- freshservice connection tab -->
             <fw-tab-panel name="freshservice">
-                <div id="tab2-fields-container">
+                <div id="tab2-fields-container"> <br>
 
                 </div>
 
@@ -160,7 +128,7 @@
             <!-- ukg connection tab -->
              <!-- app-freshservice/connection -->
             <fw-tab-panel name="ukg">
-                <div id="tab3-fields-container">
+                <div id="tab3-fields-container"> <br>
 
                 </div>
                 
@@ -172,8 +140,8 @@
         </fw-tabs>
     </div>
    
-         <!-- iparams script file  -->
-         <script src="./assets/scripts/iparams.js"></script>
+<!-- iparams script file  -->
+<script src="./assets/scripts/iparams.js"></script>
 <script>
     console.log('from iparams.html');
 
@@ -208,6 +176,14 @@
     const tab3_domain = getValueFromElement("tab3-url");
     const tab3_apikey = getValueFromElement("tab3-api");
     const tab3_connection_name = getValueFromElement("tab3-connection-name");
+    console.log('postconfig',login_email,
+        login_password,
+        tab2_domain,
+        tab2_apikey,
+        tab2_connection_name,
+        tab3_domain,
+        tab3_apikey,
+        tab3_connection_name )
     return {
         email:login_email,
         password:login_password,
@@ -233,6 +209,10 @@
         getElementUsingId("tab3-url").value = iparams.tab3_url ;
         getElementUsingId("tab3-api").value = iparams.tab3_apikey ;
         getElementUsingId("tab2-connection-name").value = iparams.tab3_connection_name ;
+    }
+
+    function validate(){
+      return true
     }
 
     </script>

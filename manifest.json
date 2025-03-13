@@ -4,7 +4,7 @@
     "freshservice": {
       "location": {
         "full_page_app": {
-          "url": "../config/iparams.html",
+          "url": "/index.html",
           "icon":"../app/styles/images/icon.svg"
         }
       },
@@ -21,15 +21,19 @@
         "getAppSchema": {},
         "createConnection": {},
         "saveConnection": {},
-        "editConnection": {}
+        "editConnection": {},
+        "sampleSmi": {},
+        "listKonnectors": {},
+        "activateKonnector":{},
+        "deactivateKonnector":{}
       }
     }
-  },
-  "dependencies": {
-    "axios": "1.7.9"
   },
   "engines": {
     "node": "18.20.6",
     "fdk": "9.2.0"
+  },
+  "dependencies": {
+    "axios": "0.20.0"
   }
 }

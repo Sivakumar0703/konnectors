@@ -1,0 +1,137 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  padding:30px;
+  background-color: #ebeff3;
+  font-family:Open Sans,Helvetica Neue,sans-serif;
+}
+
+#dashboard{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* .card{
+  border-radius: 8px;
+  padding:15px;
+  background-color: red;
+} */
+
+.btn{
+  border-radius:8px;
+  padding:15px;
+  cursor: pointer;
+  color:white;
+  background-color: #12344d;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: large;
+}
+
+.card-details{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-card{
+  /* border:1px solid black; */
+  padding:30px;
+  margin: 10px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+/*  */
+.indicator{
+  height:10px;
+  width:10px;
+  display: inline-block;
+  border:1px solid black;
+  border-radius: 3px;
+}
+
+#status-indicator{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.link{
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #12344d;
+  font-weight:600;
+}
+
+ 
+/* w-200|h-100 & w-200|h-200|radius-10 */
+/* original w-300|h-100 & w-150|h-300 w-300|radius-50 */
+
+#gauge{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.semi-donut{
+  width:200px;
+  height:100px;
+  /* border:1px solid red; */
+  position:relative;
+  color:#000;
+  font-size:20px;
+  display:flex;
+  align-items: flex-end;
+  justify-content:center;
+  box-sizing: border-box;
+  overflow: hidden;
+  --percentage:0;
+  
+  &:after{
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left:0;
+    top:0;
+    width:200px;
+    height:200px;
+    border:10px solid; 
+    border-radius:50%;
+    border-color: #92a2b1  #92a2b1 #12344d #12344d;
+    transform: rotate(calc(1deg * (-45 + var(--percentage) * 1.8)));
+  }
+}
+ 
+/* konnector-table */
+#konnector-table{
+  border:1px solid black;
+  width:100%;
+  border-collapse: collapse;
+}
+
+th,tr ,td{
+  border:1px solid black;
+  text-align: center;
+}
+
+#konnector-table td{
+  padding: 5px;
+}
+#konnector-table th{
+  padding: 8px;
+}
+
+.hide{
+  display:none;
+}
+
+.kebab-menu{
+  color:black;
+}
