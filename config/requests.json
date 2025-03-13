@@ -3,7 +3,7 @@
         "schema":{
             "method": "POST",
             "host": "<%= context.base_url %>",
-            "path": "/login"
+            "path": "/api/internal/login"
         }
     },
 

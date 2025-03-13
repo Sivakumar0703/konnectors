@@ -36,7 +36,7 @@ const login_password_icon = document.getElementById("login-password-icon");
 const signup_password_icon = document.getElementById("signup-password-icon");
 const settings_tab = document.getElementById("settings-tab");
 let access_token;
-let base_url = "";
+let base_url = "https://konnectify-engine-next-qcxxa5xmtq-uc.a.run.app";
 let tab2_connector_type_id = "app-freshservice";
 let tab3_connector_type_id = "app-ukg";
 const freshservice_app_id = "123";
@@ -109,57 +109,58 @@ function login() {
   let options = {name:"siva", role:"dev"};
   console.log('opt', options)
   // client.request.invoke("sampleSmi", options)
-  // .then((data) => console.log("from server",data))
-  // .catch((err) => console.log("err from server", err));
+  // .then((data) => console.log("from server",data)
+  // ,((err) => console.log("err from server", err)));
   console.log("validation fired", login_email, login_email.value);
   // if email field is empty
   // if(!login_email.value){
-  //     login_email.state = "warning";
-  //     login_email.setFocus();
-  //     return
+  //   login_email.state = "warning";
+  //   login_email.setFocus();
+  //   return
   // }
-  // if password field is empty
-  /*
-    if(!login_password.value){
-      login_password.state = "warning";
-      login_password.setFocus();
-      return
-    }
-    login_btn.loading = true;
-    console.log("host",login_email.value.trim().includes(service_provider) ? login_email.value.trim() : login_email.value.trim() + "." + service_provider)
-    client.request.invokeTemplate(
-        "login",
-        {
-            context: {
-              // todo: add base url
-              base_url: base_url,
-            },
-            body: JSON.stringify({
-              email: trimTheString(login_email),
-              password: trimTheString(login_password)
-            })
-        })
-        .then((response) => {
-          if(response && response.user){
-            login_btn.disabled = true;
-            // callback(true);
-            console.log('response from api', response);
-            toast.trigger({type:'success', content: "Login Successful"});
-            login_btn.loading = false;
-            tab2.disabled = false;
-            tab2_field_container.innerHTML = '';
-            generateFields(); // todo: get app schema + dynamic field creation
-            settings_tab.activeTabIndex = 1; // switching to next tab
-          }
-        })
-        .catch((error) => {
-            toast.trigger({type:'error', content: "Invalid Credentials"}) 
-            console.error("api error", error);
-            login_btn.loading = false;
-            login_btn.disabled = false;
-            // callback(false);
-        });
-*/
+  // // if password field is empty
+  
+  //   if(!login_password.value){
+  //     login_password.state = "warning";
+  //     login_password.setFocus();
+  //     return
+  //   }
+  //   login_btn.loading = true;
+  //   console.log("host",login_email.value.trim().includes(service_provider) ? login_email.value.trim() : login_email.value.trim() + "." + service_provider)
+  //   client.request.invokeTemplate(
+  //       "login",
+  //       {
+  //           context: {
+  //             base_url: base_url,
+  //           },
+  //           body: JSON.stringify({
+  //             email: trimTheString(login_email),
+  //             password: trimTheString(login_password)
+  //           })
+  //       })
+  //       .then((response) => {
+  //         if(response && response.user){
+  //           login_btn.disabled = true;
+  //           // callback(true);
+  //           console.log('response from api', response);
+  //           toast.trigger({type:'success', content: "Login Successful"});
+  //           login_btn.loading = false;
+  //           tab2.disabled = false;
+  //           tab2_field_container.innerHTML = '';
+  //           generateFields(); // todo: get app schema + dynamic field creation
+  //           settings_tab.activeTabIndex = 1; // switching to next tab
+  //         }
+  //       })
+  //       .catch((error) => {
+  //           toast.trigger({type:'error', content: "Invalid Credentials"}) 
+  //           console.error("api error", error);
+  //           login_btn.loading = false;
+  //           login_btn.disabled = false;
+  //           // callback(false);
+  //       });
+        
+
+
   toast.trigger({ type: "success", content: "Login Successful" });
   login_btn.loading = false;
   // tab2.disabled = false;
@@ -167,10 +168,11 @@ function login() {
   generateFields("base url", tab2_app_name); // todo: get app schema + dynamic field creation
   settings_tab.activeTabIndex = 1; // switching to next tab
   // todo: store connector id
+ 
 }
 
 function validate() {
-  return false;
+  return true;
 }
 
 async function signup() {
